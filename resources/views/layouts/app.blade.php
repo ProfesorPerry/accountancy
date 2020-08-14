@@ -7,9 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>Carousel Template · Bootstrap</title>
+    <title>System księgowości</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -59,17 +64,17 @@
                 @endif
                 @if(Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Administracja</a>
+                        <a class="nav-link" href="{{ url('/admin')  }}">Administracja</a>
                     </li>
                     <li class="nav-item">
-                        <a 
-                            class="nav-link" 
+                        <a
+                            class="nav-link"
                             href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Wyloguj
                         </a>
                     </li>
-                    
+
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>

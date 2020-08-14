@@ -18,10 +18,12 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::namespace('Admin')->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
+Route::namespace('Admin')
+    ->middleware('admin')
+    ->group(function () {
+        Route::get('/admin', function () {
+            return view('admin.dashboard');
+        });
     });
-});
 
 Auth::routes();
