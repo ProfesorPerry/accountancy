@@ -20,10 +20,13 @@ Route::get('/', function () {
 
 Route::namespace('Admin')
     ->middleware('admin')
+    ->prefix('admin')
     ->group(function () {
-        Route::get('/admin', function () {
+        Route::get('/', function () {
             return view('admin.dashboard');
         });
+
+        Route::resource('/account', 'AccountController');
     });
 
 Auth::routes();

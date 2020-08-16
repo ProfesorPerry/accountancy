@@ -25,7 +25,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin') }}">
             <div class="sidebar-brand-text mx-3">Panel administracyjny</div>
         </a>
 
@@ -54,9 +54,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
+                    <h6 class="collapse-header">Komponenty:</h6>
+                    <a class="collapse-item" href="{{ url('/admin/account') }}">Konta księgowe</a>
                 </div>
             </div>
         </li>
@@ -320,10 +319,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
+                @yield('content')
             </div>
             <!-- /.container-fluid -->
 
