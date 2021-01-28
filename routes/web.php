@@ -27,6 +27,9 @@ Route::namespace('Admin')
         });
 
         Route::resource('/account', 'AccountController');
+        Route::post('/account/symbol/validate', 'AccountController@validateSymbol')
+            ->name('account.validateSymbol');
+        Route::resource('/operation', 'OperationController');
     });
 
 Auth::routes();

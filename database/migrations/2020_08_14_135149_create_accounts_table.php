@@ -19,6 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('symbol');
             $table->float('currentState');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,5 +31,8 @@ class CreateAccountsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('accounts');
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

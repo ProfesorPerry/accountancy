@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Account;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -18,7 +17,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accountList = Account::with(['plusOperations', 'minusOperations'])->get();
+        $accountList = Account::with(['operations'])->get();
         $viewData = ['accountList' => $accountList];
 
         return view('admin.account.index', $viewData);
@@ -46,7 +45,7 @@ class AccountController extends Controller
 
         $account->name = $request->input('name');
         $account->symbol = $request->input('symbol');
-        $account->currentState = $request->input('state');
+        $account->currentState = (double) $request->input('state') ?? 0;
 
         // Set flash message for next request
         if($account->save()) {
@@ -64,9 +63,9 @@ class AccountController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function show($id)
+    public function show(int $id)
     {
-        $account = Account::with(['plusOperations', 'minusOperations'])->find($id);
+        $account = Account::with(['operations'])->find($id);
         $viewData = ['account' => $account];
 
         return view('admin.account.show', $viewData);
@@ -78,7 +77,7 @@ class AccountController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $account = Account::find($id);
         $viewData = ['account' => $account];
@@ -116,7 +115,7 @@ class AccountController extends Controller
      * @param  int  $id
      * @return Redirector
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $account = Account::find($id);
 
@@ -128,5 +127,18 @@ class AccountController extends Controller
         }
 
         return redirect('/admin/account');
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function validateSymbol(Request $request)
+    {
+        $symbol = $request->symbol;
+        $duplicate = Account::where('symbol', '=', $symbol)->get();
+
+        if (!$duplicate->isEmpty()) {
+            echo "Symbol jest juz używany";
+        }
     }
 }

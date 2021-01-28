@@ -15,22 +15,22 @@
     @endif
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Lista kont księgowych</h1>
+    <h1 class="h3 mb-2 text-gray-800">Lista operacji księgowych</h1>
     <p class="mb-4">
-        Jeżeli chcesz dowiedzieć się więcej na temat kont księgowych i tego jak je wykorzystywać, zobacz
+        Jeżeli chcesz dowiedzieć się więcej na temat operacji księgowych, zobacz
         <a target="_blank" href="#">dokumentację</a>.
     </p>
 
-    <a href="{{ url('/admin/account/create') }}" class="btn btn-success btn-icon-split mb-4">
+    <a href="{{ url('/admin/operation/create') }}" class="btn btn-success btn-icon-split mb-4">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
-        <span class="text">Dodaj konto</span>
+        <span class="text">Dodaj operację</span>
     </a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Konta księgowe</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Operacje księgowe</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -38,24 +38,22 @@
                     <thead>
                     <tr>
                         <th>Nazwa</th>
-                        <th>Symbol</th>
-                        <th>Saldo bieżące</th>
-                        <th>Ostatnia operacja</th>
+                        <th>Kwota</th>
+                        <th>Zaksięgowano</th>
                         <th>Akcje</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($accountList as $account)
+                    @foreach($operations as $operation)
                         <tr>
-                            <td>{{ $account->name }}</td>
-                            <td>{{ $account->symbol }}</td>
-                            <td>{{ $account->currentState }}</td>
-                            <td>{{ $account->operations[0]->amount ?? '0' }} PLN</td>
+                            <td>{{ $operation->name }}</td>
+                            <td>{{ $operation->amount }} PLN</td>
+                            <td>{{ $operation->created_at }}</td>
                             <td>
-                                <a class="btn btn-info btn-circle" href="{{ url('/admin/account/' . $account->id) }}">
+                                <a class="btn btn-info btn-circle" href="{{ url('/admin/operation/' . $operation->id) }}">
                                     <i class="fas fa-eye text-white"></i>
                                 </a>
-                                <form class="d-inline" action="{{ url('/admin/account/' . $account->id)}}" method="post">
+                                <form class="d-inline" action="{{ url('/admin/operation/' . $operation->id)}}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <button class="btn btn-danger btn-circle" type="submit">

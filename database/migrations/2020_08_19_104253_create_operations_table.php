@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlusOperationsTable extends Migration
+class CreateOperationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreatePlusOperationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plus_operations', function (Blueprint $table) {
+        Schema::create('operations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->string('name');
             $table->float('amount');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreatePlusOperationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plus_operations');
+        Schema::dropIfExists('operations');
     }
 }

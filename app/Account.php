@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
+
+    use SoftDeletes;
 
     /**
      * @var string[]
@@ -21,18 +25,14 @@ class Account extends Model
     protected $table = 'accounts';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function plusOperations()
+    public function operations()
     {
-        return $this->belongsToMany('App\Operations\PlusOperation', 'accounts_plus_operations');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function minusOperations()
-    {
-        return $this->belongsToMany('App\Operations\MinusOperation', 'accounts_minus_operations');
+        return $this
+            ->belongsToMany('App\Operation', 'account_operation')
+            ->withPivot('side', 'sign')
+            ->withTimestamps()
+            ->orderBy('created_at', 'desc');
     }
 }
