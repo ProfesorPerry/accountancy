@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,7 +26,7 @@ class Operation extends Model
     public function accounts()
     {
         return $this
-            ->belongsToMany('App\Account', 'account_operation')
+            ->belongsToMany('App\Models\Account', 'account_operation')
             ->withPivot('side', 'sign')
             ->withTimestamps();
     }
