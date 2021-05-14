@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "admin-lte": "^3.0.0-alpha.2"
+        "admin-lte": "^3.0.0-alpha.2",
+        "startbootstrap-sb-admin-2": "^4.1.4"
     }
 }

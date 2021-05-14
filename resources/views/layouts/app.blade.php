@@ -43,7 +43,7 @@
     </div>
 </nav>
 
-<div class="container mt-5">
+<div class="bg-primary vh-100 py-5">
     @yield('content')
 </div>
 
