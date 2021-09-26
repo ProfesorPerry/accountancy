@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Operations\OperationRequest;
 use App\Models\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Operation;
@@ -11,42 +12,26 @@ use Illuminate\View\View;
 
 class OperationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return View
-     */
     public function index()
     {
         $operations = Operation::all();
-        $viewData = ['operations' => $operations];
 
-        return view('admin.operation.index', $viewData);
+        return view('admin.operation.index', compact('operations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
-     */
     public function create()
     {
         $accounts = Account::all();
-        $viewData = ['accounts' => $accounts];
 
-        return view('admin.operation.create', $viewData);
+        return view('admin.operation.create', compact('accounts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Redirector
-     */
-    public function store(Request $request)
+    public function store(OperationRequest $request)
     {
-        $operationTitle = $request->input('title');
-        $operationAmount = $request->input('amount');
+        $operation = new Operation();
+        $operation->fill($request->input());
+        $operation->save();
+
         $account1Id = $request->input('account1');
         $account2Id = $request->input('account2');
         $account1Side = $request->input('side1');
@@ -54,11 +39,6 @@ class OperationController extends Controller
         $account1Sign = $request->input('sign1');
         $account2Sign = $request->input('sign2');
 
-        $operation = new Operation();
-        $operation->name = $operationTitle;
-        $operation->amount = $operationAmount;
-        $operation->created_at = date("Y-m-d H:i:s");
-        $operation->save();
 
         $operation->accounts()->attach($account1Id, [
             'side' => $account1Side,
@@ -70,7 +50,9 @@ class OperationController extends Controller
             'sign' => $account2Sign,
         ]);
 
-        return redirect('/admin/account');
+        return redirect()
+            ->route('admin.operation.show', ['operation' => $operation->id])
+            ->with('message', 'Pomyślnie dodano operację księgową.');
     }
 
     /**

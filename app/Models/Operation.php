@@ -2,27 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Operation extends Model
 {
+    use HasTimestamps;
 
-    /**
-     * @var string
-     */
     protected $table = 'operations';
+    protected $fillable = ['name', 'amount', 'creation_day'];
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'name', 'amount'
-    ];
-
-    /**
-     * @return BelongsToMany
-     */
     public function accounts()
     {
         return $this

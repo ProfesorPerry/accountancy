@@ -17,6 +17,7 @@ class CreateOperationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->float('amount');
+            $table->date('creation_day');
             $table->timestamps();
         });
     }

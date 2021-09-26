@@ -16,10 +16,13 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Lista kont księgowych</h1>
-    <p class="mb-4">
-        Jeżeli chcesz dowiedzieć się więcej na temat kont księgowych i tego jak je wykorzystywać, zobacz
-        <a target="_blank" href="#">dokumentację</a>.
-    </p>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Start</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Konta księgowe</li>
+        </ol>
+    </nav>
 
     <a href="{{ url('/admin/account/create') }}" class="btn btn-success btn-icon-split mb-4">
         <span class="icon text-white-50">
@@ -30,7 +33,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Konta księgowe</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Plan kont</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -38,9 +41,13 @@
                     <thead>
                     <tr>
                         <th>Nazwa</th>
-                        <th>Symbol</th>
-                        <th>Saldo bieżące</th>
-                        <th>Ostatnia operacja</th>
+                        <th>Typ</th>
+                        <th>Numer</th>
+                        <th>Bilansowe</th>
+                        <th>Wynikowe</th>
+                        <th>Pozabilansowe</th>
+                        <th>Rozrachunkowe</th>
+                        <th>Kartotekowe</th>
                         <th>Akcje</th>
                     </tr>
                     </thead>
@@ -48,9 +55,13 @@
                     @foreach($accountList as $account)
                         <tr>
                             <td>{{ $account->name }}</td>
-                            <td>{{ $account->symbol }}</td>
-                            <td>{{ $account->currentState }}</td>
-                            <td>{{ $account->operations[0]->amount ?? '0' }} PLN</td>
+                            <td>{{ $account->type }}</td>
+                            <td>{{ $account->number }}</td>
+                            <td>{!! $account->is_balance_account ? '<i class="fas fa-check"></i>' : '' !!}</td>
+                            <td>{!! $account->is_result_account ? '<i class="fas fa-check"></i>' : '' !!}</td>
+                            <td>{!! $account->is_beyond_balance_account ? '<i class="fas fa-check"></i>' : '' !!}</td>
+                            <td>{!! $account->is_clearing_account ? '<i class="fas fa-check"></i>' : '' !!}</td>
+                            <td>{!! $account->is_file_account ? '<i class="fas fa-check"></i>' : '' !!}</td>
                             <td>
                                 <a class="btn btn-info btn-circle" href="{{ url('/admin/account/' . $account->id) }}">
                                     <i class="fas fa-eye text-white"></i>

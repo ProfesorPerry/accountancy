@@ -21,14 +21,15 @@ Route::get('/', function () {
 Route::namespace('Admin')
     ->middleware('admin')
     ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
         Route::get('/', function () {
             return view('admin.dashboard');
-        });
+        })->name('dashboard');
 
         Route::resource('/account', 'AccountController');
-        Route::post('/account/symbol/validate', 'AccountController@validateSymbol')
-            ->name('account.validateSymbol');
+        Route::post('/account/symbol/validate', 'AccountController@validateSymbol')->name('account.validateSymbol');
+
         Route::resource('/operation', 'OperationController');
     });
 

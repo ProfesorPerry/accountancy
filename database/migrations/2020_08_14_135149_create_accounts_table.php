@@ -15,9 +15,14 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('type');
             $table->string('name');
-            $table->string('symbol');
-            $table->float('currentState');
+            $table->string('number');
+            $table->boolean('is_balance_account');
+            $table->boolean('is_result_account');
+            $table->boolean('is_beyond_balance_account');
+            $table->boolean('is_clearing_account');
+            $table->boolean('is_file_account');
             $table->timestamps();
             $table->softDeletes();
         });
